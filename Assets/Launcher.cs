@@ -27,7 +27,6 @@ namespace Com.TimCorporation.Multiplayer
 
         void Start()
         {
-            Connect();
         }
 
         #endregion
@@ -49,7 +48,7 @@ namespace Com.TimCorporation.Multiplayer
 
         #endregion
 
-        #region MonoBehaviourPunCallbacks Callbacks
+        #region MonoBehaviourPunCallbacks CallBacks
 
         public override void OnConnectedToMaster()
         {
