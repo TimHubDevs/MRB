@@ -9,6 +9,10 @@ namespace Com.TimCorporation.Multiplayer
         #region Private Serializable Fields
 
         [SerializeField] private byte maxPlayersPerRoom = 4;
+
+        [SerializeField] private GameObject controlPanel;
+        
+        [SerializeField] private GameObject progressLabel;
         
         #endregion
 
@@ -27,6 +31,8 @@ namespace Com.TimCorporation.Multiplayer
 
         void Start()
         {
+            progressLabel.SetActive(false);
+            controlPanel.SetActive(true);
         }
 
         #endregion
@@ -35,6 +41,8 @@ namespace Com.TimCorporation.Multiplayer
 
         public void Connect()
         {
+            progressLabel.SetActive(true);
+            controlPanel.SetActive(false);
             if (PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.JoinRandomRoom();
@@ -57,6 +65,8 @@ namespace Com.TimCorporation.Multiplayer
 
         public override void OnDisconnected(DisconnectCause cause)
         {
+            progressLabel.SetActive(false);
+            controlPanel.SetActive(true);
             Debug.LogWarningFormat("OnDisconnected() was called by PUN with reason {0}", cause);
         }
 
