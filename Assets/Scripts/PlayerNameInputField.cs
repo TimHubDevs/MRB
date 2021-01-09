@@ -10,6 +10,7 @@ namespace Com.TimCorporation.Multiplayer
     [RequireComponent(typeof(InputField))]
     public class PlayerNameInputField : MonoBehaviour
     {
+        private InputField inputField;
         #region Private Constants
 
         private const string playerNamePrefKey = "PlayerName";
@@ -21,7 +22,7 @@ namespace Com.TimCorporation.Multiplayer
         private void Start()
         {
             string defaultName = string.Empty;
-            InputField inputField = this.GetComponent<InputField>();
+            inputField = this.GetComponent<InputField>();
             if (inputField != null)
             {
                 if (PlayerPrefs.HasKey(playerNamePrefKey))
@@ -32,6 +33,7 @@ namespace Com.TimCorporation.Multiplayer
             }
 
             PhotonNetwork.NickName = defaultName;
+            Debug.Log(defaultName + " is def Name");
         }
 
         #endregion
@@ -40,6 +42,7 @@ namespace Com.TimCorporation.Multiplayer
 
         public void SetPlayerName(string value)
         {
+            value = inputField.text;
             if (string.IsNullOrEmpty(value))
             {
                 Debug.LogError("Player Name is null or empty");
@@ -49,6 +52,7 @@ namespace Com.TimCorporation.Multiplayer
             PhotonNetwork.NickName = value;
             
             PlayerPrefs.SetString(playerNamePrefKey, value);
+            Debug.Log("Player Name is " + value);
         }
 
         #endregion

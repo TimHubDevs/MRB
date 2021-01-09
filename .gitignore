@@ -51,3 +51,11 @@ ProjectSettings/EditorBuildSettings.asset
 Logs/
 
 bild/
+
+.idea/.idea.New-Unity-Project/.idea/
+
+*.json
+
+Library/
+
+*.asset
