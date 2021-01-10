@@ -34,8 +34,6 @@ namespace Com.TimCorporation.Multiplayer
 
         void Update()
         {
-            ProcessInputs();
-
             if (beams != null && IsFiring != beams.activeInHierarchy)
             {
                 beams.SetActive(IsFiring);

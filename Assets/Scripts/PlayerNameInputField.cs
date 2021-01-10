@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
-using System.Collections;
 
 namespace Com.TimCorporation.Multiplayer
 {
@@ -33,7 +30,6 @@ namespace Com.TimCorporation.Multiplayer
             }
 
             PhotonNetwork.NickName = defaultName;
-            Debug.Log(defaultName + " is def Name");
         }
 
         #endregion
@@ -52,7 +48,6 @@ namespace Com.TimCorporation.Multiplayer
             PhotonNetwork.NickName = value;
             
             PlayerPrefs.SetString(playerNamePrefKey, value);
-            Debug.Log("Player Name is " + value);
         }
 
         #endregion
