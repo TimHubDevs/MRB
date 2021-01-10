@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Com.TimCorporation.Multiplayer
@@ -29,7 +30,7 @@ namespace Com.TimCorporation.Multiplayer
                 PlayerManager.LocalPlayerInstance = this.gameObject;
             }
 
-// we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
+            // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
             DontDestroyOnLoad(this.gameObject);
             if (beams == null)
             {
@@ -39,6 +40,11 @@ namespace Com.TimCorporation.Multiplayer
             {
                 beams.SetActive(false);
             }
+        }
+
+        private void Start()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void Update()
@@ -89,6 +95,22 @@ namespace Com.TimCorporation.Multiplayer
             Health -= 0.1f * Time.deltaTime;
         }
 
+        void CalledOnLevelWasLoaded(int level)
+        {
+            // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
+            if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
+            {
+                transform.position = new Vector3(0f, 5f, 0f);
+            }
+        }
+        
+        public override void OnDisable()
+        {
+            // Always call the base to remove callbacks
+            base.OnDisable ();
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
         #endregion
 
         #region Custom
@@ -113,6 +135,12 @@ namespace Com.TimCorporation.Multiplayer
         }
 
         #endregion
+
+        void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene,
+            UnityEngine.SceneManagement.LoadSceneMode loadingMode)
+        {
+            this.CalledOnLevelWasLoaded(scene.buildIndex);
+        }
 
         #region IPunObservable implementation
 
