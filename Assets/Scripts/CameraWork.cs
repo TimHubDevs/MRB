@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Com.TimCorporation.Multiplayer
 {
-	
 	public class CameraWork : MonoBehaviour
 	{
         #region Private Fields

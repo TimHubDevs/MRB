@@ -1,10 +1,9 @@
-﻿using System;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 namespace Com.TimCorporation.Multiplayer
 {
-    public class PlayerManager : MonoBehaviourPunCallbacks
+    public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         #region Private Fields
 
@@ -38,7 +37,7 @@ namespace Com.TimCorporation.Multiplayer
             {
                 beams.SetActive(IsFiring);
             }
-            
+
             if (photonView.IsMine)
             {
                 this.ProcessInputs();
@@ -100,6 +99,26 @@ namespace Com.TimCorporation.Multiplayer
                 {
                     IsFiring = false;
                 }
+            }
+        }
+
+        #endregion
+
+        #region IPunObservable implementation
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                // We own this player: send the others our data
+                stream.SendNext(IsFiring);
+                stream.SendNext(Health);
+            }
+            else
+            {
+                // Network player, receive data
+                this.IsFiring = (bool)stream.ReceiveNext();
+                this.Health = (float)stream.ReceiveNext();
             }
         }
 

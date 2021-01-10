@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 1595931922}
   - component: {fileID: 6968541835638739393}
   - component: {fileID: 6852213670976569941}
-  - component: {fileID: 1358866289128647426}
+  - component: {fileID: 8386400134613410760}
   m_Layer: 0
   m_Name: My Robot Kyle
   m_TagString: Untagged
@@ -763,7 +763,7 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
---- !u!114 &1358866289128647426
+--- !u!114 &8386400134613410760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -772,7 +772,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2208443474182735244}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd08475b23aa548b7b9d28397d430b32, type: 3}
+  m_Script: {fileID: 11500000, guid: 265e25dd7a7ab57409df5e927ea98205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 7
