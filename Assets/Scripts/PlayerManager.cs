@@ -6,16 +6,23 @@ namespace Com.TimCorporation.Multiplayer
 {
     public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
-        #region Private Fields
-
-        [Tooltip("The Beams GameObject to control")] [SerializeField]
-        private GameObject beams;
+        #region Public Fields
 
         [Tooltip("The current Health of our player")]
         public float Health = 1f;
 
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
+
+        #endregion
+        
+        #region Private Fields
+
+        [Tooltip("The Beams GameObject to control")] [SerializeField]
+        private GameObject beams;
+
+        [Tooltip("The Player's UI GameObject Prefab")] [SerializeField]
+        public GameObject PlayerUiPrefab;
 
         bool IsFiring;
 
@@ -25,13 +32,6 @@ namespace Com.TimCorporation.Multiplayer
 
         void Awake()
         {
-            if (photonView.IsMine)
-            {
-                PlayerManager.LocalPlayerInstance = this.gameObject;
-            }
-
-            // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
-            DontDestroyOnLoad(this.gameObject);
             if (beams == null)
             {
                 Debug.LogError("<Color=Red><a>Missing</a></Color> Beams Reference.", this);
@@ -40,20 +40,48 @@ namespace Com.TimCorporation.Multiplayer
             {
                 beams.SetActive(false);
             }
+
+            if (photonView.IsMine)
+            {
+                PlayerManager.LocalPlayerInstance = this.gameObject;
+            }
+
+            // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
+
+            DontDestroyOnLoad(this.gameObject);
         }
 
         private void Start()
         {
+            CameraWork _cameraWork = gameObject.GetComponent<CameraWork>();
+
+            if (_cameraWork != null)
+            {
+                if (photonView.IsMine)
+                {
+                    _cameraWork.OnStartFollowing();
+                }
+            }
+            else
+            {
+                Debug.LogError("<Color=Red><b>Missing</b></Color> CameraWork Component on player Prefab.", this);
+            }
+            
+            if (PlayerUiPrefab != null)
+            {
+                GameObject _uiGo = Instantiate(PlayerUiPrefab);
+                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            }
+            else
+            {
+                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
+            }
+            
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void Update()
         {
-            if (beams != null && IsFiring != beams.activeInHierarchy)
-            {
-                beams.SetActive(IsFiring);
-            }
-
             if (photonView.IsMine)
             {
                 this.ProcessInputs();
@@ -61,6 +89,11 @@ namespace Com.TimCorporation.Multiplayer
                 {
                     GameManager.Instance.LeaveRoom();
                 }
+            }
+
+            if (beams != null && IsFiring != beams.activeInHierarchy)
+            {
+                beams.SetActive(IsFiring);
             }
         }
 
@@ -102,18 +135,26 @@ namespace Com.TimCorporation.Multiplayer
             {
                 transform.position = new Vector3(0f, 5f, 0f);
             }
+
+            // Create the UI
+            GameObject uiGo = Instantiate(this.PlayerUiPrefab);
+            uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
-        
+
         public override void OnDisable()
         {
             // Always call the base to remove callbacks
-            base.OnDisable ();
+            base.OnDisable();
             UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         #endregion
 
         #region Custom
+
+        #endregion
+
+        #region Private Methods
 
         void ProcessInputs()
         {
@@ -134,13 +175,13 @@ namespace Com.TimCorporation.Multiplayer
             }
         }
 
-        #endregion
-
         void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene,
             UnityEngine.SceneManagement.LoadSceneMode loadingMode)
         {
             this.CalledOnLevelWasLoaded(scene.buildIndex);
         }
+
+        #endregion
 
         #region IPunObservable implementation
 
