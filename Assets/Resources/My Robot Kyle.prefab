@@ -779,8 +779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4021b70b023a454eb15f9a2bcef7f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beams: {fileID: 1715683360}
   Health: 1
+  beams: {fileID: 1715683360}
   PlayerUiPrefab: {fileID: 2934675755612119928, guid: 335d2f82cc2bb9f47934faa02c295a47, type: 3}
 --- !u!1 &2208443474182735246
 GameObject:
