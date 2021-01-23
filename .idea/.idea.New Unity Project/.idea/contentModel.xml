@@ -824,7 +824,9 @@
         <e p="Scripts" t="Include">
           <e p="CameraWork.cs" t="Include" />
           <e p="Chat" t="Include">
+            <e p="ChatGui1.cs" t="Include" />
             <e p="ChatManager.cs" t="Include" />
+            <e p="NamePick.cs" t="Include" />
           </e>
           <e p="GameManager.cs" t="Include" />
           <e p="Launcher.cs" t="Include" />

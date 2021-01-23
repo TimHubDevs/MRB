@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ChatGui.cs" company="Exit Games GmbH">
-//   Part of: PhotonChat demo,
-// </copyright>
-// <author>developer@exitgames.com</author>
-// --------------------------------------------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -18,24 +11,7 @@ using AuthenticationValues = Photon.Chat.AuthenticationValues;
 using Photon.Pun;
 #endif
 
-/// <summary>
-/// This simple Chat UI demonstrate basics usages of the Chat Api
-/// </summary>
-/// <remarks>
-/// The ChatClient basically lets you create any number of channels.
-///
-/// some friends are already set in the Chat demo "DemoChat-Scene", 'Joe', 'Jane' and 'Bob', simply log with them so that you can see the status changes in the Interface
-///
-/// Workflow:
-/// Create ChatClient, Connect to a server with your AppID, Authenticate the user (apply a unique name,)
-/// and subscribe to some channels.
-/// Subscribe a channel before you publish to that channel!
-///
-///
-/// Note:
-/// Don't forget to call ChatClient.Service() on Update to keep the Chatclient operational.
-/// </remarks>
-public class ChatGui : MonoBehaviour, IChatClientListener
+public class ChatGui1 : MonoBehaviour, IChatClientListener
 {
 
 	public string[] ChannelsToJoinOnConnect; // set in inspector. Demo channels to join automatically.
@@ -49,6 +25,8 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 	private string selectedChannelName; // mainly used for GUI/input
 
 	public ChatClient chatClient;
+
+	private string nameRoom = "Room";
 
     #if !PHOTON_UNITY_NETWORKING
     [SerializeField]
@@ -235,7 +213,6 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 
 			this.chatClient.SendPrivateMessage(this.chatClient.AuthValues.UserId, this.testBytes, true);
 		}
-
 
 		bool doingPrivateChat = this.chatClient.PrivateChannels.ContainsKey(this.selectedChannelName);
 		string privateChatTarget = string.Empty;
