@@ -5,19 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/ui/Scenes/Launcher.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/ui/Scenes/Room for 1.unity
     guid: 061ed120529a0ea488459138952022e0
-  - enabled: 1
+  - enabled: 0
     path: Assets/ui/Scenes/Room for 2.unity
     guid: 66b08b32de9320d4da0cd2b7911c8c0a
-  - enabled: 1
+  - enabled: 0
     path: Assets/ui/Scenes/Room for 3.unity
     guid: 4b07c8c3b500a834e923a3dc7fbd41ae
-  - enabled: 1
+  - enabled: 0
     path: Assets/ui/Scenes/Room for 4.unity
     guid: 216548dfe83bbd34099ea8bb025c4ff9
+  - enabled: 1
+    path: Assets/ui/Scenes/DemoChatPhoton.unity
+    guid: 8a461d85c5dbb0b49aea80f9685651e4
   m_configObjects: {}

@@ -206,7 +206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 192561281}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ChatGui1, Assembly-CSharp
         m_MethodName: OpenDashboard
         m_Mode: 1
@@ -803,7 +803,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 192561276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 065ecd3767b84bf3819de0fa4a0415d0, type: 3}
+  m_Script: {fileID: 11500000, guid: de874c81d7ecf17449fb4d83793de521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chatNewComponent: {fileID: 192561281}
@@ -817,7 +817,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 192561276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 341f509ef2998d949a321c7ca08f6671, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b5b409e9c79a5946b769026f7ae8c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ChannelsToJoinOnConnect:
@@ -1077,8 +1077,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -75}
-  m_SizeDelta: {x: 240, y: 40}
+  m_AnchoredPosition: {x: 125, y: -80.41266}
+  m_SizeDelta: {x: 240, y: 29.174683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239533974
 MonoBehaviour:
@@ -3368,10 +3368,10 @@ MonoBehaviour:
     The script IgnoreUiRaycastWhenInactive keeps inactive
     panels from blocking input.
 
-    
 
-    All users should use a UserId (to be
-    found as friend).
+
+    All users should use a UserId (to be found
+    as friend).
 
     This message will go away at runtime.'
 --- !u!222 &915497949
@@ -3544,7 +3544,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 192561281}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ChatGui1, Assembly-CSharp
         m_MethodName: PostHelpToCurrentChannel
         m_Mode: 1
@@ -4334,7 +4334,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 125, y: -5}
-  m_SizeDelta: {x: 240, y: 40}
+  m_SizeDelta: {x: 240, y: 50.825317}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1320934697
 MonoBehaviour:
@@ -5400,7 +5400,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 568, y: 17.198803}
+  m_SizeDelta: {x: 568, y: 18.282759}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1641022483
 MonoBehaviour:
