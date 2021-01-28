@@ -25,18 +25,13 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 	private string selectedChannelName; // mainly used for GUI/input
 
 	public ChatClient chatClient;
-
-	private string nameRoom = "Room";
-
+	
     #if !PHOTON_UNITY_NETWORKING
     [SerializeField]
     #endif
     protected internal ChatAppSettings chatAppSettings;
 
-
-    public GameObject missingAppIdErrorPanel;
-	public GameObject ConnectingLabel;
-
+    
 	public RectTransform ChatPanel;     // set in inspector (to enable/disable panel)
 	public GameObject UserIdFormPanel;
 	public InputField InputFieldChat;   // set in inspector
@@ -51,7 +46,6 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 	private readonly Dictionary<string,FriendItem> friendListItemLUT =  new Dictionary<string, FriendItem>();
 
 	public bool ShowState = true;
-	public GameObject Title;
 	public Text StateText; // set in inspector
 	public Text UserIdText; // set in inspector
 
@@ -95,11 +89,7 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 
 	    this.UserIdText.text = "";
 	    this.StateText.text  = "";
-	    this.StateText.gameObject.SetActive(true);
-	    this.UserIdText.gameObject.SetActive(true);
-	    this.Title.SetActive(true);
 	    this.ChatPanel.gameObject.SetActive(false);
-	    this.ConnectingLabel.SetActive(false);
 
 		if (string.IsNullOrEmpty(this.UserName))
 		{
@@ -112,7 +102,6 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 
         bool appIdPresent = !string.IsNullOrEmpty(this.chatAppSettings.AppIdChat);
 
-	    this.missingAppIdErrorPanel.SetActive(!appIdPresent);
 		this.UserIdFormPanel.gameObject.SetActive(appIdPresent);
 
 		if (!appIdPresent)
@@ -137,7 +126,7 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 
         this.ChannelToggleToInstantiate.gameObject.SetActive(false);
 
-		this.ConnectingLabel.SetActive(true);
+        Debug.Log("Connecting...");
 	}
 
     /// <summary>To avoid that the Editor becomes unresponsive, disconnect all Photon connections in OnDestroy.</summary>
@@ -347,7 +336,6 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 			this.chatClient.Subscribe(this.ChannelsToJoinOnConnect, this.HistoryLengthToFetch);
 		}
 
-	    this.ConnectingLabel.SetActive(false);
 
 	    this.UserIdText.text = "Connected as "+ this.UserName;
 
@@ -380,7 +368,6 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 
 	public void OnDisconnected()
 	{
-	    this.ConnectingLabel.SetActive(false);
 	}
 
 	public void OnChatStateChange(ChatState state)
@@ -401,7 +388,7 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 			if (this.ChannelToggleToInstantiate != null)
 			{
 				this.InstantiateChannelButton(channel);
-
+			
 			}
 		}
 
@@ -444,12 +431,12 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 			Debug.Log("Skipping creation for an existing channel toggle.");
 			return;
 		}
-
+		
 		Toggle cbtn = (Toggle)Instantiate(this.ChannelToggleToInstantiate);
 		cbtn.gameObject.SetActive(true);
 		cbtn.GetComponentInChildren<ChannelSelector>().SetChannel(channelName);
 		cbtn.transform.SetParent(this.ChannelToggleToInstantiate.transform.parent, false);
-
+		
 		this.channelToggles.Add(channelName, cbtn);
 	}
 
