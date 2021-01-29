@@ -36,12 +36,14 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 	public GameObject UserIdFormPanel;
 	public InputField InputFieldChat;   // set in inspector
 	public Text CurrentChannelText;     // set in inspector
-	public Toggle ChannelToggleToInstantiate; // set in inspector
+	//public Toggle ChannelToggleToInstantiate; // set in inspector
 
 
 	public GameObject FriendListUiItemtoInstantiate;
 
-	private readonly Dictionary<string, Toggle> channelToggles = new Dictionary<string, Toggle>();
+	//private readonly Dictionary<string, Toggle> channelToggles = new Dictionary<string, Toggle>();
+	private readonly List<string> channelToggles = new List<string>();
+	
 
 	private readonly Dictionary<string,FriendItem> friendListItemLUT =  new Dictionary<string, FriendItem>();
 
@@ -124,7 +126,7 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
         /**/
         this.chatClient.ConnectUsingSettings(this.chatAppSettings);
 
-        this.ChannelToggleToInstantiate.gameObject.SetActive(false);
+       // this.ChannelToggleToInstantiate.gameObject.SetActive(false);
 
         Debug.Log("Connecting...");
 	}
@@ -213,7 +215,7 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 			string[] splitNames = this.selectedChannelName.Split(new char[] { ':' });
 			privateChatTarget = splitNames[1];
 		}
-		//UnityEngine.Debug.Log("selectedChannelName: " + selectedChannelName + " doingPrivateChat: " + doingPrivateChat + " privateChatTarget: " + privateChatTarget);
+		Debug.Log("selectedChannelName: " + selectedChannelName + " doingPrivateChat: " + doingPrivateChat + " privateChatTarget: " + privateChatTarget);
 
 
 		if (inputLine[0].Equals('\\'))
@@ -281,14 +283,14 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 				string[] subtokens = tokens[1].Split(new char[] { ' ', ',' }, 2);
 
 				// If we are already subscribed to the channel we directly switch to it, otherwise we subscribe to it first and then switch to it implicitly
-				if (this.channelToggles.ContainsKey(subtokens[0]))
-				{
-				    this.ShowChannel(subtokens[0]);
-				}
-				else
-				{
-					this.chatClient.Subscribe(new string[] { subtokens[0] });
-				}
+				// if (this.channelToggles.ContainsKey(subtokens[0]))
+				// {
+				//     this.ShowChannel(subtokens[0]);
+				// }
+				// else
+				// {
+				// 	this.chatClient.Subscribe(new string[] { subtokens[0] });
+				// }
 			}
 			else
 			{
@@ -388,11 +390,11 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 		{
 			this.chatClient.PublishMessage(channel, "says 'hi'."); // you don't HAVE to send a msg on join but you could.
 
-			if (this.ChannelToggleToInstantiate != null)
-			{
-				this.InstantiateChannelButton(channel);
-			
-			}
+			// if (this.ChannelToggleToInstantiate != null)
+			// {
+			// 	this.InstantiateChannelButton(channel);
+			//
+			// }
 		}
 
 		Debug.Log("OnSubscribed: " + string.Join(", ", channels));
@@ -427,21 +429,21 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
         Debug.LogFormat("OnSubscribed: {0}, users.Count: {1} Channel-props: {2}.", channel, users.Length, properties.ToStringFull());
     }
 
-    private void InstantiateChannelButton(string channelName)
-	{
-		if (this.channelToggles.ContainsKey(channelName))
-		{
-			Debug.Log("Skipping creation for an existing channel toggle.");
-			return;
-		}
-		
-		Toggle cbtn = (Toggle)Instantiate(this.ChannelToggleToInstantiate);
-		cbtn.gameObject.SetActive(true);
-		cbtn.GetComponentInChildren<ChannelSelector>().SetChannel(channelName);
-		cbtn.transform.SetParent(this.ChannelToggleToInstantiate.transform.parent, false);
-		
-		this.channelToggles.Add(channelName, cbtn);
-	}
+ // delete//   private void InstantiateChannelButton(string channelName)
+	// {
+	// 	if (this.channelToggles.ContainsKey(channelName))
+	// 	{
+	// 		Debug.Log("Skipping creation for an existing channel toggle.");
+	// 		return;
+	// 	}
+	// 	
+	// 	Toggle cbtn = (Toggle)Instantiate(this.ChannelToggleToInstantiate);
+	// 	cbtn.gameObject.SetActive(true);
+	// 	cbtn.GetComponentInChildren<ChannelSelector>().SetChannel(channelName);
+	// 	cbtn.transform.SetParent(this.ChannelToggleToInstantiate.transform.parent, false);
+	// 	
+	// 	this.channelToggles.Add(channelName, cbtn);
+	// }
 
 	private void InstantiateFriendButton(string friendId)
 	{
@@ -459,33 +461,33 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 
 	public void OnUnsubscribed(string[] channels)
 	{
-		foreach (string channelName in channels)
-		{
-			if (this.channelToggles.ContainsKey(channelName))
-			{
-				Toggle t = this.channelToggles[channelName];
-				Destroy(t.gameObject);
-
-				this.channelToggles.Remove(channelName);
-
-				Debug.Log("Unsubscribed from channel '" + channelName + "'.");
-
-				// Showing another channel if the active channel is the one we unsubscribed from before
-				if (channelName == this.selectedChannelName && this.channelToggles.Count > 0)
-				{
-					IEnumerator<KeyValuePair<string, Toggle>> firstEntry = this.channelToggles.GetEnumerator();
-					firstEntry.MoveNext();
-
-				    this.ShowChannel(firstEntry.Current.Key);
-
-					firstEntry.Current.Value.isOn = true;
-				}
-			}
-			else
-			{
-				Debug.Log("Can't unsubscribe from channel '" + channelName + "' because you are currently not subscribed to it.");
-			}
-		}
+		// foreach (string channelName in channels)
+		// {
+		// 	if (this.channelToggles.ContainsKey(channelName))
+		// 	{
+		// 		Toggle t = this.channelToggles[channelName];
+		// 		Destroy(t.gameObject);
+		//
+		// 		this.channelToggles.Remove(channelName);
+		//
+		// 		Debug.Log("Unsubscribed from channel '" + channelName + "'.");
+		//
+		// 		// Showing another channel if the active channel is the one we unsubscribed from before
+		// 		if (channelName == this.selectedChannelName && this.channelToggles.Count > 0)
+		// 		{
+		// 			IEnumerator<KeyValuePair<string, Toggle>> firstEntry = this.channelToggles.GetEnumerator();
+		// 			firstEntry.MoveNext();
+		//
+		// 		    this.ShowChannel(firstEntry.Current.Key);
+		//
+		// 			firstEntry.Current.Value.isOn = true;
+		// 		}
+		// 	}
+		// 	else
+		// 	{
+		// 		Debug.Log("Can't unsubscribe from channel '" + channelName + "' because you are currently not subscribed to it.");
+		// 	}
+		// }
 	}
 
 	public void OnGetMessages(string channelName, string[] senders, object[] messages)
@@ -501,7 +503,8 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 	{
 		// as the ChatClient is buffering the messages for you, this GUI doesn't need to do anything here
 		// you also get messages that you sent yourself. in that case, the channelName is determinded by the target of your msg
-		this.InstantiateChannelButton(channelName);
+		
+		//delete//this.InstantiateChannelButton(channelName);
 
 		byte[] msgBytes = message as byte[];
 		if (msgBytes != null)
@@ -598,10 +601,10 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 		this.CurrentChannelText.text = channel.ToStringMessages();
 		Debug.Log("ShowChannel: " + this.selectedChannelName);
 
-		foreach (KeyValuePair<string, Toggle> pair in this.channelToggles)
-		{
-			pair.Value.isOn = pair.Key == channelName ? true : false;
-		}
+		// foreach (KeyValuePair<string, Toggle> pair in this.channelToggles)
+		// {
+		// 	pair.Value.isOn = pair.Key == channelName ? true : false;
+		// }
 	}
 
 	public void OpenDashboard()
