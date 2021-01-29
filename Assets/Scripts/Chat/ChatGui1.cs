@@ -13,6 +13,8 @@ using Photon.Pun;
 
 public class ChatGui1 : MonoBehaviour, IChatClientListener
 {
+	
+	[SerializeField] private GameObject connect;
 
 	private string[] ChannelsToJoinOnConnect;
 	
@@ -84,6 +86,7 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 	    this.StateText.text  = "";
 	    this.ChatPanel.gameObject.SetActive(false);
 	    this.showButtonChat.gameObject.SetActive(false);
+	    this.connect.gameObject.SetActive(false);
 
 		if (string.IsNullOrEmpty(this.UserName))
 		{
@@ -107,6 +110,7 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 	public void Connect()
 	{
 		this.UserIdFormPanel.gameObject.SetActive(false);
+		this.connect.gameObject.SetActive(true);
 
 		this.chatClient = new ChatClient(this);
         #if !UNITY_WEBGL
@@ -117,7 +121,6 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
         Debug.Log("Connecting as: " + this.UserName);
         
         this.chatClient.ConnectUsingSettings(this.chatAppSettings);
-        
         Debug.Log("Connecting...");
 	}
 
@@ -313,6 +316,7 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 
 	public void OnConnected()
 	{
+		this.connect.gameObject.SetActive(false);
 		List<string> nameRoom = new List<string>();
 		nameRoom.Add("chat");
 		ChannelsToJoinOnConnect = nameRoom.ToArray();

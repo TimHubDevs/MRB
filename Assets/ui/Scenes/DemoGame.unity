@@ -403,10 +403,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 192561277}
-  - component: {fileID: 192561278}
-  - component: {fileID: 192561279}
   - component: {fileID: 192561281}
   - component: {fileID: 192561280}
+  - component: {fileID: 192561278}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -435,46 +434,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192561276}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02d148d0890b2d44dbdf7f1c1b39a499, type: 3}
+  m_Script: {fileID: 11500000, guid: 7419a975b1360a04cbd2a224b5e7dc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChannelsToJoinOnConnect:
-  - Region
-  - Guild
-  FriendsList:
-  - Joe
-  - Jane
-  - Bob
-  HistoryLengthToFetch: 0
-  missingAppIdErrorPanel: {fileID: 0}
-  ConnectingLabel: {fileID: 0}
-  ChatPanel: {fileID: 1507568401}
-  UserIdFormPanel: {fileID: 814826291}
-  InputFieldChat: {fileID: 1989416850}
-  CurrentChannelText: {fileID: 1641022483}
-  ChannelToggleToInstantiate: {fileID: 0}
-  FriendListUiItemtoInstantiate: {fileID: 0}
-  ShowState: 1
-  Title: {fileID: 0}
-  StateText: {fileID: 2126670842}
-  UserIdText: {fileID: 162519642}
-  TestLength: 2048
---- !u!114 &192561279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192561276}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 696a5174ff5e707479b3540eb56d14b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chatNewComponent: {fileID: 192561278}
-  idInput: {fileID: 1320934697}
+  maxPlayersPerRoom: 4
+  connect: {fileID: 634120901}
 --- !u!114 &192561280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +450,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 192561276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0066b9de0faa8e428fe10b5a1b612ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b4badd5e6051714da706020d78850d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chatNewComponent: {fileID: 192561281}
@@ -498,10 +464,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 192561276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1daf185867241f438e81fac42452554, type: 3}
+  m_Script: {fileID: 11500000, guid: f63b92ea50102894083d04e9c942e394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HistoryLengthToFetch: 0
+  connect: {fileID: 634120901}
+  HistoryLengthToFetch: 10
   ChatPanel: {fileID: 1507568401}
   UserIdFormPanel: {fileID: 814826291}
   InputFieldChat: {fileID: 1989416850}
@@ -685,10 +652,10 @@ RectTransform:
   m_Father: {fileID: 814826292}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -80.41266}
-  m_SizeDelta: {x: 240, y: 29.174683}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239533974
 MonoBehaviour:
@@ -737,6 +704,18 @@ MonoBehaviour:
       - m_Target: {fileID: 192561280}
         m_TargetAssemblyTypeName: Com.TimCorporation.Multiplayer.Chat.NamePick, Assembly-CSharp
         m_MethodName: StartChat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 192561278}
+        m_TargetAssemblyTypeName: Com.TimCorporation.Multiplayer.Launcher, Assembly-CSharp
+        m_MethodName: Connect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -971,7 +950,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: User Id
+  m_Text: User Name
 --- !u!222 &330710528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1154,6 +1133,85 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589294878}
+  m_CullTransparentMesh: 1
+--- !u!1 &634120901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 634120902}
+  - component: {fileID: 634120904}
+  - component: {fileID: 634120903}
+  m_Layer: 5
+  m_Name: ConnectingText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &634120902
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634120901}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 770857990}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.2377, y: 0.000024796}
+  m_SizeDelta: {x: 250.4755, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &634120903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634120901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Connecting...
+--- !u!222 &634120904
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634120901}
   m_CullTransparentMesh: 1
 --- !u!1 &715466988
 GameObject:
@@ -1594,7 +1652,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter User Id
+  m_Text: Enter User Name...
 --- !u!222 &750611069
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1677,6 +1735,7 @@ RectTransform:
   - {fileID: 1507568401}
   - {fileID: 2006252522}
   - {fileID: 715466989}
+  - {fileID: 634120902}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1726,7 +1785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &814826292
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2041,10 +2100,10 @@ RectTransform:
   m_Father: {fileID: 814826292}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -5}
-  m_SizeDelta: {x: 240, y: 50.825317}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1320934697
 MonoBehaviour:

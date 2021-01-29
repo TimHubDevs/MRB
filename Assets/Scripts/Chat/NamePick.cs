@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 namespace Com.TimCorporation.Multiplayer.Chat
 {
@@ -42,6 +43,7 @@ namespace Com.TimCorporation.Multiplayer.Chat
             enabled = false;
 
             PlayerPrefs.SetString(NamePick.UserNamePlayerPref, chatNewComponent.UserName);
+            PhotonNetwork.NickName = chatNewComponent.UserName;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Com.TimCorporation.Multiplayer
     public class PlayerNameInputField : MonoBehaviour
     {
         private InputField inputField;
+        
         #region Private Constants
 
         private const string playerNamePrefKey = "PlayerName";
