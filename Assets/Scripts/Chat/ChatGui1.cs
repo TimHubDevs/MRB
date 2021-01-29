@@ -14,7 +14,7 @@ using Photon.Pun;
 public class ChatGui1 : MonoBehaviour, IChatClientListener
 {
 
-	public string[] ChannelsToJoinOnConnect; // set in inspector. Demo channels to join automatically.
+	private string[] ChannelsToJoinOnConnect;
 
 	public string[] FriendsList;
 
@@ -331,6 +331,9 @@ public class ChatGui1 : MonoBehaviour, IChatClientListener
 
 	public void OnConnected()
 	{
+		List<string> nameRoom = new List<string>();
+		nameRoom.Add("chat");
+		ChannelsToJoinOnConnect = nameRoom.ToArray();
 		if (this.ChannelsToJoinOnConnect != null && this.ChannelsToJoinOnConnect.Length > 0)
 		{
 			this.chatClient.Subscribe(this.ChannelsToJoinOnConnect, this.HistoryLengthToFetch);
