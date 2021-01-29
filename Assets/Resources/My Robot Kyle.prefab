@@ -600,12 +600,12 @@ GameObject:
   - component: {fileID: 2208443474183100844}
   - component: {fileID: 2208443474190038604}
   - component: {fileID: 2054356331967674647}
-  - component: {fileID: 2937600274981260310}
   - component: {fileID: 1496188822198569082}
   - component: {fileID: 6968541835638739393}
   - component: {fileID: 6852213670976569941}
   - component: {fileID: 8386400134613410760}
-  - component: {fileID: 8588356454152138185}
+  - component: {fileID: 9149827482220018216}
+  - component: {fileID: 1280742639292963011}
   m_Layer: 0
   m_Name: My Robot Kyle
   m_TagString: Untagged
@@ -666,19 +666,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &2937600274981260310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2208443474182735244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e59ae18ac9bb3d4cb0599dd247d8292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionDampTime: 0.25
 --- !u!114 &1496188822198569082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,7 +687,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 6968541835638739393}
   - {fileID: 6852213670976569941}
-  - {fileID: 8588356454152138185}
+  - {fileID: 1280742639292963011}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -767,7 +754,7 @@ MonoBehaviour:
   centerOffset: {x: 0, y: 0, z: 0}
   followOnStart: 0
   smoothSpeed: 0.125
---- !u!114 &8588356454152138185
+--- !u!114 &9149827482220018216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -776,7 +763,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2208443474182735244}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4021b70b023a454eb15f9a2bcef7f1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d3b806dacc22e64a8761e9f364acaef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionDampTime: 0.25
+--- !u!114 &1280742639292963011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208443474182735244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24aa2723f2e138f4c984a28ca7200925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 1
