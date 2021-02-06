@@ -40,7 +40,7 @@ namespace Com.TimCorporation.Multiplayer
 
             if (stateInfo.IsName("Base Layer.Run"))
             {
-                if (Input.GetButtonDown("Fire2"))
+                if (Input.GetButtonDown("Jump"))
                 {
                     animator.SetTrigger("Jump");
                 }

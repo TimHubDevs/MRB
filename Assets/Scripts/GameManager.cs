@@ -7,12 +7,12 @@ namespace Com.TimCorporation.Multiplayer
 {
     public class GameManager : MonoBehaviourPunCallbacks
     {
-        #region Public Methods
-
         public static GameManager Instance;
 
         [Tooltip("The prefab to use for representing the player")]
         public GameObject playerPrefab;
+
+        #region Public Methods
 
         public void LeaveRoom()
         {
@@ -34,9 +34,14 @@ namespace Com.TimCorporation.Multiplayer
             }
             else
             {
-                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
-                // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                if (PlayerManager.LocalPlayerInstance == null)
+                {
+                    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                }else
+                {
+                    Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
+                }
             }
         }
 
@@ -46,9 +51,11 @@ namespace Com.TimCorporation.Multiplayer
             {
                 Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
             }
-
-            Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-            PhotonNetwork.LoadLevel("Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
+            else //if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            {
+                Debug.LogFormat("PhotonNetwork : Loading Level : GameRPG");
+                PhotonNetwork.LoadLevel("GameRPG");
+            }
         }
 
         #endregion
@@ -65,14 +72,10 @@ namespace Com.TimCorporation.Multiplayer
         {
             Debug.LogFormat("OnPlayerEnteredRoom() {0}" + other.NickName,
                 other.NickName); // not seen if you're the player connecting
-
-
             if (PhotonNetwork.IsMasterClient)
             {
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}",
                     PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
-
-
                 LoadArena();
             }
         }
@@ -81,14 +84,10 @@ namespace Com.TimCorporation.Multiplayer
         public override void OnPlayerLeftRoom(Player other)
         {
             Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
-
-
             if (PhotonNetwork.IsMasterClient)
             {
                 Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}",
                     PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
-
-
                 LoadArena();
             }
         }

@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Com.TimCorporation.Multiplayer
 {
@@ -10,7 +11,7 @@ namespace Com.TimCorporation.Multiplayer
 
         [SerializeField] private byte maxPlayersPerRoom = 4;
 
-        [SerializeField] private GameObject controlPanel;
+        [SerializeField] private GameObject namePanel;
         
         [SerializeField] private GameObject progressLabel;
         
@@ -33,7 +34,7 @@ namespace Com.TimCorporation.Multiplayer
         void Start()
         {
             progressLabel.SetActive(false);
-            controlPanel.SetActive(true);
+            namePanel.SetActive(true);
         }
 
         #endregion
@@ -43,7 +44,7 @@ namespace Com.TimCorporation.Multiplayer
         public void Connect()
         {
             progressLabel.SetActive(true);
-            controlPanel.SetActive(false);
+            namePanel.SetActive(false);
             if (PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.JoinRandomRoom();
@@ -72,7 +73,7 @@ namespace Com.TimCorporation.Multiplayer
         public override void OnDisconnected(DisconnectCause cause)
         {
             progressLabel.SetActive(false);
-            controlPanel.SetActive(true);
+            namePanel.SetActive(true);
             isConnecting = false;
             Debug.LogWarningFormat("OnDisconnected() was called by PUN with reason {0}", cause);
         }
@@ -87,11 +88,11 @@ namespace Com.TimCorporation.Multiplayer
         public override void OnJoinedRoom()
         {
             Debug.Log("Now this client is in a room.");
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            if (PhotonNetwork.CurrentRoom.PlayerCount <= 4)
             {
-                Debug.Log("We load the 'Room for 1' ");
+                Debug.Log("We load the Game Room");
 
-                PhotonNetwork.LoadLevel("Room for 1");
+                PhotonNetwork.LoadLevel("GameRPG");
             }
         }
 

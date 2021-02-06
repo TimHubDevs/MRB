@@ -183,11 +183,11 @@ namespace Photon.Pun.Demo.Cockpit
 			
 					if (PhotonNetwork.InLobby)
 					{
-						this.OnJoinedLobby ();
+						this.OnJoinedLobby();
 					}
 					else
 					{
-						this.OnConnectedToMaster ();
+						this.OnConnectedToMaster();
 					}
 
 				}

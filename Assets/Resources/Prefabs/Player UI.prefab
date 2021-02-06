@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8041182125553334903}
   - component: {fileID: 9156373262909122945}
   - component: {fileID: 8720881538719074008}
-  - component: {fileID: 3198262357255806868}
+  - component: {fileID: 387467930875699084}
   m_Layer: 5
   m_Name: Player UI
   m_TagString: Untagged
@@ -179,7 +179,7 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &3198262357255806868
+--- !u!114 &387467930875699084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2934675755612119928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bd9c8a785cbaa64a96eda035da1e130, type: 3}
+  m_Script: {fileID: 11500000, guid: 3dfe151c54e039046a1af9c05f75249b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screenOffset: {x: 0, y: 30, z: 0}

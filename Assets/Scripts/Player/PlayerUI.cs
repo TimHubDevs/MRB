@@ -16,7 +16,7 @@ namespace Com.TimCorporation.Multiplayer
         [Tooltip("UI Slider to display Player's Health")] [SerializeField]
         private Slider playerHealthSlider;
 
-        PlayerManager target;
+        PlayerManager playerManager;
 
         float characterControllerHeight;
 
@@ -41,7 +41,7 @@ namespace Com.TimCorporation.Multiplayer
 
         void Update()
         {
-            if (target == null)
+            if (playerManager == null)
             {
                 Destroy(this.gameObject);
                 return;
@@ -51,7 +51,7 @@ namespace Com.TimCorporation.Multiplayer
             // Reflect the Player Health
             if (playerHealthSlider != null)
             {
-                playerHealthSlider.value = target.Health;
+                playerHealthSlider.value = playerManager.Health;
             }
         }
 
@@ -78,9 +78,9 @@ namespace Com.TimCorporation.Multiplayer
 
         #region Public Methods
 
-        public void SetTarget(PlayerManager _target)
+        public void SetTarget(PlayerManager playerManager)
         {
-            if (_target == null)
+            if (playerManager == null)
             {
                 Debug.LogError("<Color=Red><b>Missing</b></Color> PlayMakerManager target for PlayerUI.SetTarget.",
                     this);
@@ -88,12 +88,12 @@ namespace Com.TimCorporation.Multiplayer
             }
 
             // Cache references for efficiency because we are going to reuse them.
-            this.target = _target;
-            targetTransform = this.target.GetComponent<Transform>();
-            targetRenderer = this.target.GetComponentInChildren<Renderer>();
+            this.playerManager = playerManager;
+            targetTransform = this.playerManager.GetComponent<Transform>();
+            targetRenderer = this.playerManager.GetComponentInChildren<Renderer>();
 
 
-            CharacterController _characterController = this.target.GetComponent<CharacterController>();
+            CharacterController _characterController = this.playerManager.GetComponent<CharacterController>();
 
             // Get data from the Player that won't change during the lifetime of this Component
             if (_characterController != null)
@@ -103,7 +103,7 @@ namespace Com.TimCorporation.Multiplayer
 
             if (playerNameText != null)
             {
-                playerNameText.text = this.target.photonView.Owner.NickName;
+                playerNameText.text = this.playerManager.photonView.Owner.NickName;
             }
         }
 

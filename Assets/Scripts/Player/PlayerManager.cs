@@ -1,5 +1,4 @@
-﻿using System;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 namespace Com.TimCorporation.Multiplayer
@@ -15,14 +14,12 @@ namespace Com.TimCorporation.Multiplayer
         public static GameObject LocalPlayerInstance;
 
         #endregion
-        
+
         #region Private Fields
 
-        [Tooltip("The Beams GameObject to control")] [SerializeField]
-        private GameObject beams;
+        [SerializeField] private GameObject beams;
 
-        [Tooltip("The Player's UI GameObject Prefab")] [SerializeField]
-        public GameObject PlayerUiPrefab;
+        [SerializeField] public GameObject playerUiPrefab;
 
         bool IsFiring;
 
@@ -53,30 +50,24 @@ namespace Com.TimCorporation.Multiplayer
 
         private void Start()
         {
-            CameraWork _cameraWork = gameObject.GetComponent<CameraWork>();
+            ThirdCamera thirdCamera = gameObject.GetComponent<ThirdCamera>();
 
-            if (_cameraWork != null)
-            {
-                if (photonView.IsMine)
-                {
-                    _cameraWork.OnStartFollowing();
-                }
-            }
-            else
+            if (thirdCamera == null)
             {
                 Debug.LogError("<Color=Red><b>Missing</b></Color> CameraWork Component on player Prefab.", this);
             }
-            
-            if (PlayerUiPrefab != null)
+
+            if (playerUiPrefab != null)
             {
-                GameObject _uiGo = Instantiate(PlayerUiPrefab);
-                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+                GameObject _uiGo = Instantiate(playerUiPrefab);
+                // _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+                _uiGo.GetComponent<PlayerUI>().SetTarget(this);
             }
             else
             {
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
-            
+
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
@@ -124,7 +115,6 @@ namespace Com.TimCorporation.Multiplayer
                 return;
             }
 
-            // we slowly affect health when beam is constantly hitting us, so player has to move to prevent death.
             Health -= 0.1f * Time.deltaTime;
         }
 
@@ -137,8 +127,9 @@ namespace Com.TimCorporation.Multiplayer
             }
 
             // Create the UI
-            GameObject uiGo = Instantiate(this.PlayerUiPrefab);
-            uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            GameObject uiGo = Instantiate(this.playerUiPrefab);
+            //uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            uiGo.GetComponent<PlayerUI>().SetTarget(this);
         }
 
         public override void OnDisable()
@@ -147,10 +138,6 @@ namespace Com.TimCorporation.Multiplayer
             base.OnDisable();
             UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
         }
-
-        #endregion
-
-        #region Custom
 
         #endregion
 
