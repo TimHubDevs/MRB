@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Com.TimCorporation.Multiplayer
 {
@@ -19,7 +20,7 @@ namespace Com.TimCorporation.Multiplayer
 
         [SerializeField] private GameObject beams;
 
-        [SerializeField] public GameObject playerUiPrefab;
+        [SerializeField] public GameObject gameCanvas;
 
         bool IsFiring;
 
@@ -57,11 +58,10 @@ namespace Com.TimCorporation.Multiplayer
                 Debug.LogError("<Color=Red><b>Missing</b></Color> CameraWork Component on player Prefab.", this);
             }
 
-            if (playerUiPrefab != null)
+            if (gameCanvas != null)
             {
-                GameObject _uiGo = Instantiate(playerUiPrefab);
-                // _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-                _uiGo.GetComponent<PlayerUI>().SetTarget(this);
+                GameObject uiGo = Instantiate(gameCanvas);
+                uiGo.GetComponentInChildren<PlayerUI>().SetTarget(this.GetComponent<PlayerManager>());
             }
             else
             {
@@ -127,9 +127,8 @@ namespace Com.TimCorporation.Multiplayer
             }
 
             // Create the UI
-            GameObject uiGo = Instantiate(this.playerUiPrefab);
-            //uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-            uiGo.GetComponent<PlayerUI>().SetTarget(this);
+            GameObject uiGo = Instantiate(this.gameCanvas);
+            uiGo.GetComponentInChildren<PlayerUI>().SetTarget(this.GetComponent<PlayerManager>());
         }
 
         public override void OnDisable()

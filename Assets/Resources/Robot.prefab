@@ -1802,7 +1802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 1
   beams: {fileID: 2216931044324886934}
-  playerUiPrefab: {fileID: 0}
+  gameCanvas: {fileID: 3710962178668416392, guid: 9634f93494f3712488b3ef3950bd4dbd, type: 3}
 --- !u!114 &4050439627075603308
 MonoBehaviour:
   m_ObjectHideFlags: 0

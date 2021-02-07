@@ -7,37 +7,18 @@ namespace Com.TimCorporation.Multiplayer
     {
         #region Private Fields
 
-        [Tooltip("Pixel offset from the player target")] [SerializeField]
-        private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
-
-        [Tooltip("UI Text to display Player's Name")] [SerializeField]
+        [SerializeField]
         private Text playerNameText;
 
-        [Tooltip("UI Slider to display Player's Health")] [SerializeField]
+        [SerializeField]
         private Slider playerHealthSlider;
 
         PlayerManager playerManager;
-
-        float characterControllerHeight;
-
-        Transform targetTransform;
-
-        Renderer targetRenderer;
-
-        CanvasGroup canvasGroup;
-
-        Vector3 targetPosition;
-
+        
         #endregion
 
 
         #region MonoBehaviour Callbacks
-
-        private void Awake()
-        {
-            canvasGroup = this.GetComponent<CanvasGroup>();
-            this.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
-        }
 
         void Update()
         {
@@ -48,28 +29,9 @@ namespace Com.TimCorporation.Multiplayer
             }
 
 
-            // Reflect the Player Health
             if (playerHealthSlider != null)
             {
                 playerHealthSlider.value = playerManager.Health;
-            }
-        }
-
-        void LateUpdate()
-        {
-            // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
-            if (targetRenderer != null)
-            {
-                this.canvasGroup.alpha = targetRenderer.isVisible ? 1f : 0f;
-            }
-
-            // Follow the Target GameObject on screen.
-            if (targetTransform != null)
-            {
-                targetPosition = targetTransform.position;
-                targetPosition.y += characterControllerHeight;
-
-                this.transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
             }
         }
 
@@ -86,20 +48,8 @@ namespace Com.TimCorporation.Multiplayer
                     this);
                 return;
             }
-
-            // Cache references for efficiency because we are going to reuse them.
+            
             this.playerManager = playerManager;
-            targetTransform = this.playerManager.GetComponent<Transform>();
-            targetRenderer = this.playerManager.GetComponentInChildren<Renderer>();
-
-
-            CharacterController _characterController = this.playerManager.GetComponent<CharacterController>();
-
-            // Get data from the Player that won't change during the lifetime of this Component
-            if (_characterController != null)
-            {
-                characterControllerHeight = _characterController.height;
-            }
 
             if (playerNameText != null)
             {

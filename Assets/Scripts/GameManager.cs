@@ -37,7 +37,9 @@ namespace Com.TimCorporation.Multiplayer
                 if (PlayerManager.LocalPlayerInstance == null)
                 {
                     Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
-                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                    float randomX = Random.Range(0f, 50f);
+                    float randomZ = Random.Range(0f, 50f);
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(randomX, 50f, randomZ), Quaternion.identity, 0);
                 }else
                 {
                     Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
