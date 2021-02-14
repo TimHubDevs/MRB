@@ -1,6 +1,5 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Com.TimCorporation.Multiplayer
 {

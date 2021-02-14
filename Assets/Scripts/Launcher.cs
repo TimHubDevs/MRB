@@ -1,7 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Com.TimCorporation.Multiplayer
 {
@@ -13,7 +13,9 @@ namespace Com.TimCorporation.Multiplayer
 
         [SerializeField] private GameObject namePanel;
         
-        [SerializeField] private GameObject progressLabel;
+        [SerializeField] private GameObject load;
+
+        [SerializeField] private Text feedbackText;
         
         #endregion
 
@@ -29,12 +31,9 @@ namespace Com.TimCorporation.Multiplayer
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
-        }
-
-        void Start()
-        {
-            progressLabel.SetActive(false);
             namePanel.SetActive(true);
+            load.SetActive(false);
+            feedbackText.gameObject.SetActive(false);
         }
 
         #endregion
@@ -43,16 +42,25 @@ namespace Com.TimCorporation.Multiplayer
 
         public void Connect()
         {
-            progressLabel.SetActive(true);
+            feedbackText.gameObject.SetActive(true);
+            feedbackText.text = "";
+
+            isConnecting = true;
+
             namePanel.SetActive(false);
+            load.SetActive(true);
+
             if (PhotonNetwork.IsConnected)
             {
+                feedbackText.text = "Joining Room...";
                 PhotonNetwork.JoinRandomRoom();
             }
             else
             {
-                isConnecting = PhotonNetwork.ConnectUsingSettings();
-                PhotonNetwork.GameVersion = gameVersion;
+                feedbackText.text = "Connecting...";
+
+                PhotonNetwork.ConnectUsingSettings();
+                PhotonNetwork.GameVersion = this.gameVersion;
             }
         }
 
@@ -62,40 +70,47 @@ namespace Com.TimCorporation.Multiplayer
 
         public override void OnConnectedToMaster()
         {
-            Debug.Log("OnConnectedToMaster() was called by PUN");
             if (isConnecting)
             {
+                feedbackText.text = "OnConnectedToMaster: Next -> try to Join Random Room";
+                Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room.\n " +
+                          "Calling: PhotonNetwork.JoinRandomRoom(); Operation will fail if no room found");
                 PhotonNetwork.JoinRandomRoom();
-                isConnecting = false;
+                // isConnecting = false;
             }
         }
 
         public override void OnDisconnected(DisconnectCause cause)
         {
-            progressLabel.SetActive(false);
+            feedbackText.text = "<Color=Red>OnDisconnected</Color> "+cause;
             namePanel.SetActive(true);
+            load.SetActive(false);
             isConnecting = false;
-            Debug.LogWarningFormat("OnDisconnected() was called by PUN with reason {0}", cause);
+            Debug.LogError("OnDisconnected() was called by PUN with reason \n" + cause);
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            Debug.Log("No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
-
-            PhotonNetwork.CreateRoom(null, new RoomOptions {MaxPlayers = maxPlayersPerRoom});
+            feedbackText.text = "<Color=Red>OnJoinRandomFailed</Color>: Next -> Create a new Room";
+            Debug.Log("PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\n" +
+                      "Calling: PhotonNetwork.CreateRoom");
+            
+            PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = this.maxPlayersPerRoom});
+            // Debug.Log("Room Created: Waiting for Another Players");
         }
 
-        public override void OnJoinedRoom()
-        {
-            Debug.Log("Now this client is in a room.");
-            if (PhotonNetwork.CurrentRoom.PlayerCount <= 4)
-            {
-                Debug.Log("We load the Game Room");
+         public override void OnJoinedRoom()
+         {
+             feedbackText.text = "<Color=Green>OnJoinedRoom</Color> with " + PhotonNetwork.CurrentRoom.PlayerCount + " Player(s)";
+             Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");
+             Debug.Log("Now this client is in a room.");
+             if (PhotonNetwork.CurrentRoom.PlayerCount <= 4)
+             {
+                 Debug.Log("We load the Game Room");
+                 PhotonNetwork.LoadLevel("GameRPG");
+             }
+         }
 
-                PhotonNetwork.LoadLevel("GameRPG");
-            }
-        }
-
-        #endregion
+         #endregion
     }
 }

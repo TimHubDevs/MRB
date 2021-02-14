@@ -2613,7 +2613,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883318213568232759, guid: f348cacadc62f7842a3163f074003db2, type: 3}
         m_TargetAssemblyTypeName: Com.TimCorporation.Multiplayer.GameManager, Assembly-CSharp
         m_MethodName: LeaveRoom
         m_Mode: 1

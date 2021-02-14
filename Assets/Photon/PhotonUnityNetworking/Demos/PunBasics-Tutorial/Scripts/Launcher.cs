@@ -10,7 +10,6 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-
 using Photon.Realtime;
 
 namespace Photon.Pun.Demo.PunBasics
@@ -78,7 +77,6 @@ namespace Photon.Pun.Demo.PunBasics
 
 		#endregion
 
-
 		#region Public Methods
 
 		/// <summary>
@@ -135,8 +133,7 @@ namespace Photon.Pun.Demo.PunBasics
 		}
 
         #endregion
-
-
+        
         #region MonoBehaviourPunCallbacks CallBacks
         // below, we implement some callbacks of PUN
         // you can find PUN's callbacks in the class MonoBehaviourPunCallbacks
