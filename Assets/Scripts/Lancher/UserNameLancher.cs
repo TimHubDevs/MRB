@@ -5,7 +5,7 @@ using Photon.Pun;
 namespace Com.TimCorporation.Multiplayer
 {
     [RequireComponent(typeof(InputField))]
-    public class UserName : MonoBehaviour
+    public class UserNameLancher : MonoBehaviour
     {
         private InputField inputField;
         #region Private Constants

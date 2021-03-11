@@ -727,7 +727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9ed3562db6354814ea4fe6c2ae2bdd43, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59095fb0934ffdc45ada493b7a8ff01b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -754,9 +754,10 @@ Animation:
   m_GameObject: {fileID: 1988333935}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 180a76269c7a48441add789689c4292f, type: 2}
+  m_Animation: {fileID: 7400000, guid: 8f99b5e2ddb07c74d8b82fb1536c00ed, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 180a76269c7a48441add789689c4292f, type: 2}
+  - {fileID: 7400000, guid: 8f99b5e2ddb07c74d8b82fb1536c00ed, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -876,7 +877,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8960104083824005546}
-        m_TargetAssemblyTypeName: Com.TimCorporation.Multiplayer.UserName, Assembly-CSharp
+        m_TargetAssemblyTypeName: Com.TimCorporation.Multiplayer.UserNameLancher,
+          Assembly-CSharp
         m_MethodName: SetPlayerName
         m_Mode: 5
         m_Arguments:
@@ -938,7 +940,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8960104083824005545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d6c608e0f2f9b342b82031c2b861bb1, type: 3}
+  m_Script: {fileID: 11500000, guid: a8bcf55e38997dd4f8c552fedcfd554d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8960104084522043744
