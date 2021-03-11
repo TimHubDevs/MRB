@@ -107,7 +107,7 @@ namespace Com.TimCorporation.Multiplayer
              if (PhotonNetwork.CurrentRoom.PlayerCount <= 4)
              {
                  Debug.Log("We load the Game Room");
-                 PhotonNetwork.LoadLevel("GameRPG");
+                 PhotonNetwork.LoadLevel("rpgpp_lt_scene_1.0");
              }
          }
 

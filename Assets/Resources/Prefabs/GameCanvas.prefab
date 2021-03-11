@@ -1869,14 +1869,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 954746d370bc8934299c8c8267543f4f, type: 3}
-    m_FontSize: 24
+    m_Font: {fileID: 12800000, guid: bed34eb73bf8e554191fd89a62ffe33b, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 30
     m_Alignment: 5
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -2287,7 +2287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1540871707859985160}
-  - component: {fileID: 5186989553296018608}
+  - component: {fileID: 6008674614051999279}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -2314,7 +2314,7 @@ RectTransform:
   m_AnchoredPosition: {x: -272.5, y: 0}
   m_SizeDelta: {x: 545, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5186989553296018608
+--- !u!114 &6008674614051999279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2323,7 +2323,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5075522492030560684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dfe151c54e039046a1af9c05f75249b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fef9b4da5a04e046b02a3bb9d2a70dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 2530588509016643034}
