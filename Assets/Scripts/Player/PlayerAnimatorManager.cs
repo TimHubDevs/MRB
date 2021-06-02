@@ -14,15 +14,22 @@ namespace Com.TimCorporation.Multiplayer
         #region MonoBehaviour Callbacks
 
         private Animator animator;
+        
+        private AnimatorStateInfo stateInfo;
+
+        public static PlayerAnimatorManager Instance { get; private set; }
+
 
         void Start()
         {
+            Instance = this;
             animator = GetComponent<Animator>();
             if (!animator)
             {
                 Debug.LogError("PlayerAnimatorManager is Missing Animator Component", this);
             }
         }
+
 
         void Update()
         {
@@ -36,15 +43,7 @@ namespace Com.TimCorporation.Multiplayer
                 return;
             }
 
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-            if (stateInfo.IsName("Base Layer.Run"))
-            {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    animator.SetTrigger("Jump");
-                }
-            }
+            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
@@ -58,5 +57,14 @@ namespace Com.TimCorporation.Multiplayer
         }
 
         #endregion
+
+        public void Jump()
+        {
+            if (stateInfo.IsName("Base Layer.Run"))
+            {
+                animator.SetTrigger("Jump");
+            }
+        }
+
     }
 }

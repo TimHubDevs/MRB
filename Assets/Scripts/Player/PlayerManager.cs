@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Cysharp.Threading.Tasks;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Com.TimCorporation.Multiplayer
@@ -23,12 +24,16 @@ namespace Com.TimCorporation.Multiplayer
 
         bool IsFiring;
 
+        public static PlayerManager Instance { get; private set; }
+
         #endregion
 
         #region MonoBehaviour CallBacks
 
         void Awake()
         {
+            Instance = this;
+
             if (beams == null)
             {
                 Debug.LogError("<Color=Red><a>Missing</a></Color> Beams Reference.", this);
@@ -72,19 +77,19 @@ namespace Com.TimCorporation.Multiplayer
 
         void Update()
         {
-            if (photonView.IsMine)
-            {
-                this.ProcessInputs();
-                if (Health <= 0f)
-                {
-                    GameManager.Instance.LeaveRoom();
-                }
-            }
-
-            if (beams != null && IsFiring != beams.activeInHierarchy)
-            {
-                beams.SetActive(IsFiring);
-            }
+            // if (photonView.IsMine)
+            // {
+            //     this.ProcessInputs();
+            //     if (Health <= 0f)
+            //     {
+            //         GameManager.Instance.LeaveRoom();
+            //     }
+            // }
+            //
+            // if (beams != null && IsFiring != beams.activeInHierarchy)
+            // {
+            //     beams.SetActive(IsFiring);
+            // }
         }
 
         void OnTriggerEnter(Collider other)
@@ -141,22 +146,49 @@ namespace Com.TimCorporation.Multiplayer
 
         #region Private Methods
 
-        void ProcessInputs()
+        public async UniTask ProcessInputs()
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                if (!IsFiring)
-                {
-                    IsFiring = true;
-                }
-            }
+            await Fire();
 
-            if (Input.GetButtonUp("Fire1"))
+            await UniTask.Delay(1500);
+
+            await StopFire();
+        }
+
+        private async UniTask StopFire()
+        {
+            if (photonView.IsMine)
             {
                 if (IsFiring)
                 {
                     IsFiring = false;
                 }
+            }
+
+            if (beams != null && IsFiring != beams.activeInHierarchy)
+            {
+                beams.SetActive(IsFiring);
+            }
+        }
+
+        private async UniTask Fire()
+        {
+            if (photonView.IsMine)
+            {
+                if (!IsFiring)
+                {
+                    IsFiring = true;
+                }
+
+                if (Health <= 0f)
+                {
+                    GameManager.Instance.LeaveRoom();
+                }
+            }
+
+            if (beams != null && IsFiring != beams.activeInHierarchy)
+            {
+                beams.SetActive(IsFiring);
             }
         }
 

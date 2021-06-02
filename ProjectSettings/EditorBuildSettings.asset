@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/ui/Scenes/Launcher.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/ui/Scenes/GameRPG.unity
+    path: Assets/ui/Scenes/rpgpp_lt_scene_1.0.unity
     guid: d2809ab9b90eea7419d8d90d4c505d35
   m_configObjects: {}
