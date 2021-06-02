@@ -14,8 +14,10 @@ namespace Com.TimCorporation.Multiplayer
         #region MonoBehaviour Callbacks
 
         private Animator animator;
-        
+
         private AnimatorStateInfo stateInfo;
+        private float horizontal;
+        private float vertical;
 
         public static PlayerAnimatorManager Instance { get; private set; }
 
@@ -37,23 +39,28 @@ namespace Com.TimCorporation.Multiplayer
             {
                 return;
             }
-            
+
             if (!animator)
             {
                 return;
             }
 
             stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+// #if UNITY_EDITOR
+//             horizontal = Input.GetAxis("Horizontal");
+//             vertical = Input.GetAxis("Vertical");
+// #endif
 
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
-            if (v < 0)
+            horizontal = FloatingJoystick.Instance.Direction.x;
+            vertical = FloatingJoystick.Instance.Direction.y;
+
+            if (vertical < 0)
             {
-                v = Mathf.Abs(0);
+                vertical = Mathf.Abs(0);
             }
 
-            animator.SetFloat("Speed", h * h + v * v);
-            animator.SetFloat("Direction", h, directionDampTime, Time.deltaTime);
+            animator.SetFloat("Speed", horizontal * horizontal + vertical * vertical);
+            animator.SetFloat("Direction", horizontal, directionDampTime, Time.deltaTime);
         }
 
         #endregion
@@ -65,6 +72,5 @@ namespace Com.TimCorporation.Multiplayer
                 animator.SetTrigger("Jump");
             }
         }
-
     }
 }

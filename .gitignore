@@ -5,3 +5,8 @@ bild/
 Logs
 Temp
 Logs
+Logs
+obj
+*.csproj
+MRB.sln
+obj/Debug

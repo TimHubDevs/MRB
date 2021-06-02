@@ -150,7 +150,7 @@ namespace Com.TimCorporation.Multiplayer
         {
             await Fire();
 
-            await UniTask.Delay(1500);
+            await UniTask.Delay(100);
 
             await StopFire();
         }
