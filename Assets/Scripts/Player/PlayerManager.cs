@@ -75,22 +75,6 @@ namespace Com.TimCorporation.Multiplayer
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
-        void Update()
-        {
-            // if (photonView.IsMine)
-            // {
-            //     this.ProcessInputs();
-            //     if (Health <= 0f)
-            //     {
-            //         GameManager.Instance.LeaveRoom();
-            //     }
-            // }
-            //
-            // if (beams != null && IsFiring != beams.activeInHierarchy)
-            // {
-            //     beams.SetActive(IsFiring);
-            // }
-        }
 
         void OnTriggerEnter(Collider other)
         {

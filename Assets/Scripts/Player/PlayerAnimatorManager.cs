@@ -46,13 +46,13 @@ namespace Com.TimCorporation.Multiplayer
             }
 
             stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-// #if UNITY_EDITOR
-//             horizontal = Input.GetAxis("Horizontal");
-//             vertical = Input.GetAxis("Vertical");
-// #endif
+#if UNITY_EDITOR
+            horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis("Vertical");
+#endif
 
-            horizontal = FloatingJoystick.Instance.Direction.x;
-            vertical = FloatingJoystick.Instance.Direction.y;
+            // horizontal = FloatingJoystick.Instance.Direction.x;
+            // vertical = FloatingJoystick.Instance.Direction.y;
 
             if (vertical < 0)
             {
